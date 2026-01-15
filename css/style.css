@@ -1,0 +1,88 @@
+/* Fonte base */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f5efe9; /* marrom bem claro */
+  color: #4a2e1f; /* marrom escuro para texto */
+}
+
+/* Navbar */
+.navbar {
+  background-color: #8b5e3c !important; /* marrom médio */
+}
+
+.navbar-brand,
+.navbar .nav-link {
+  color: #fff !important;
+}
+
+.navbar .nav-link:hover {
+  color: #e6d3c1 !important; /* bege claro */
+}
+
+/* Banner */
+.banner {
+  background: linear-gradient(
+      rgba(139, 94, 60, 0.6),
+      rgba(139, 94, 60, 0.6)
+    ),
+    url('../img/banner.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner-content {
+  color: #fff;
+}
+
+.banner-content h1 {
+  font-size: 3rem;
+}
+
+.banner-content p {
+  font-size: 1.2rem;
+}
+
+/* Botões */
+.btn-outline-light {
+  border-color: #e6d3c1;
+  color: #e6d3c1;
+}
+
+.btn-outline-light:hover {
+  background-color: #e6d3c1;
+  color: #4a2e
+}
+#contadorCarrinho {
+  position: absolute;
+  top: 5px;
+  right: 0;
+  font-size: 0.7rem;
+}
+
+.carrinho-box {
+  position: fixed;
+  top: 70px;
+  right: 20px;
+  width: 280px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  display: none;
+  z-index: 999;
+}
+
+.carrinho-box ul {
+  list-style: none;
+  padding: 0;
+}
+
+.carrinho-box li {
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+

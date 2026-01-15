@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Elegance Trio Acessórios</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Bootstrap CSS -->
+  <link 
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
+    rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link 
+    rel="stylesheet" 
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+  <!-- CSS personalizado -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- MENU -->
+<nav class="navbar navbar-expand-lg navbar-dark">
+  <div class="container">
+
+    <!-- LOGO -->
+    <a class="navbar-brand d-flex align-items-center" href="index.html">
+      <img src="img/logo.png" alt="Elegance Trio Acessórios" width="45" class="me-2">
+      Elegance Trio
+    </a>
+
+    <!-- BOTÃO MOBILE -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- LINKS -->
+    <div class="collapse navbar-collapse" id="menu">
+      <ul class="navbar-nav ms-auto">
+
+        <li class="nav-item">
+          <a class="nav-link active" href="index.html">Home</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="acessorios.html#brinco">Brinco</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="acessorios.html#pulseira">Pulseira</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="acessorios.html#relogio">Relógio</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="acessorios.html#colar">Colar</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="acessorios.html#oculos">Óculos</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="contato.html">Contato</a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link" href="acessorios.html"></a>
+        </li>
+
+        <!-- CARRINHO -->
+        <li class="nav-item position-relative">
+          <a class="nav-link" href="#" onclick="toggleCarrinho()">
+            <i class="bi bi-cart3"></i>
+            <span id="contadorCarrinho" class="badge bg-danger">0</span>
+          </a>
+        </li>
+
+      </ul>
+    </div>
+
+  </div>
+</nav>
+
+<!-- CARRINHO -->
+<div id="carrinhoBox" class="carrinho-box">
+  <h5>Meu Carrinho</h5>
+  <ul id="listaCarrinho"></ul>
+  <p id="totalCarrinho"></p>
+  <button class="btn btn-success w-100 mt-2" onclick="finalizarPedido()">
+    Finalizar pedido no WhatsApp
+  </button>
+</div>
+
+<!-- BANNER -->
+<header class="banner text-center">
+  <div class="banner-content">
+    <h1>Elegance Trio Acessórios</h1>
+    <p>Elegância em cada detalhe</p>
+    <a href="acessorios.html" class="btn btn-outline-light mt-3">
+      Ver Acessórios
+    </a>
+  </div>
+</header>
+
+<!-- DESTAQUES -->
+<section class="container my-5">
+  <h2 class="text-center mb-4">Destaques</h2>
+
+  <div class="row g-4">
+
+    <div class="col-md-4">
+      <div class="card">
+        <img src="img/colar1.jpg" class="card-img-top" alt="Colar Elegance">
+        <div class="card-body text-center">
+          <h5>Colar Elegance</h5>
+          <p>R$ 59,90</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <img src="img/brinco1.jpg" class="card-img-top" alt="Brinco Dourado">
+        <div class="card-body text-center">
+          <h5>Brinco Dourado</h5>
+          <p>R$ 39,90</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card">
+        <img src="img/pulseira1.jpg" class="card-img-top" alt="Pulseira Premium">
+        <div class="card-body text-center">
+          <h5>Pulseira Premium</h5>
+          <p>R$ 49,90</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- RODAPÉ -->
+<footer class="bg-dark text-white text-center p-3">
+  <p>© 2026 Elegance Trio Acessórios</p>
+</footer>
+
+<!-- JS -->
+<s
