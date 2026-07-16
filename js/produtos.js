@@ -7,12 +7,12 @@ categoria: "Brincos",
 estoque: 1, imagem: "img/brinco1.jpg",
 destaque:true
 },
-{ id: 1, 
+{ id: 2, 
 nome: "Colar", 
 preco: 35.00,
 descricao:"Colar delicado banhado a ouro.",
 categoria: "Colares", 
-estoque: 1, imagem: "img/colar1.jpg",
+estoque: 0, imagem: "img/colar1.jpg",
 destaque:true
 
 },
@@ -22,5 +22,5 @@ preco: 20.00,
 descricao:"Pulseira delicado banhado a ouro.",
 categoria: "Pulseiras", 
 estoque: 1, imagem: "img/pulseira1.jpg",
-destaque:true
+destaque:true,
 } ];
