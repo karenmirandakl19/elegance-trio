@@ -110,17 +110,17 @@ function renderizarProdutos(produtosParaExibir) {
                         <strong>${produto.estoque}</strong>
                     </p>
 
-                    <p class="text-muted">
-                        ${produto.categoria}
-                    </p>
+                   <p class="text-muted">
+    ${produto.categoria}
+</p>
 
-                    <div class="d-flex gap-2">
+<div class="d-flex gap-2">
 
-                        ${favorito}
+    ${favorito}
 
-                        ${botao}
+    ${botao}
 
-                    </div>
+</div>
 
                 </div>
 
