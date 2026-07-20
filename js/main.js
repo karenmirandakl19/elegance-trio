@@ -1,5 +1,11 @@
+// =======================
+// Favoritos
+// =======================
 let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
 
+// =======================
+// Renderizar Produtos
+// =======================
 function renderizarProdutos(produtosParaExibir) {
 
     const listaProdutos = document.getElementById("listaProdutos");
@@ -85,7 +91,9 @@ function renderizarProdutos(produtosParaExibir) {
 
                 <div class="card-body">
 
-                    <h5 class="card-title">${produto.nome}</h5>
+                    <h5 class="card-title">
+                        ${produto.nome}
+                    </h5>
 
                     <p class="card-text">
                         ${produto.descricao}
@@ -98,7 +106,8 @@ function renderizarProdutos(produtosParaExibir) {
                     </p>
 
                     <p>
-                        Estoque: <strong>${produto.estoque}</strong>
+                        Estoque:
+                        <strong>${produto.estoque}</strong>
                     </p>
 
                     <p class="text-muted">
@@ -124,10 +133,39 @@ function renderizarProdutos(produtosParaExibir) {
 
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+// =======================
+// Favoritar Produto
+// =======================
+function favoritar(id) {
+
+    if (favoritos.includes(id)) {
+
+        favoritos = favoritos.filter(favorito => favorito !== id);
+
+    } else {
+
+        favoritos.push(id);
+
+    }
+
+    localStorage.setItem(
+        "favoritos",
+        JSON.stringify(favoritos)
+    );
 
     renderizarProdutos(produtos);
 
+}
+
+// =======================
+// Carregar Página
+// =======================
+document.addEventListener("DOMContentLoaded", function () {
+
+    // Carrega todos os produtos
+    renderizarProdutos(produtos);
+
+    // Pesquisa
     const inputPesquisa = document.getElementById("pesquisaProdutos");
 
     inputPesquisa.addEventListener("input", function () {
