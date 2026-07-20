@@ -1,3 +1,5 @@
+let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
+
 function renderizarProdutos(produtosParaExibir) {
 
     const listaProdutos = document.getElementById("listaProdutos");
@@ -28,6 +30,29 @@ function renderizarProdutos(produtosParaExibir) {
                 `;
 
             }
+        let favorito;
+
+        if (favoritos.includes(produto.id)) {
+
+            favorito = `
+                <button
+                    class="btn btn-outline-danger"
+                    onclick="favoritar(${produto.id})">
+                    ❤️
+                </button>
+            `;
+
+        } else {
+
+            favorito = `
+                <button
+                    class="btn btn-outline-secondary"
+                    onclick="favoritar(${produto.id})">
+                    🤍
+                </button>
+            `;
+
+        }
 
         div.innerHTML = `
             <div class="card h-100">
