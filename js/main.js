@@ -17,10 +17,7 @@ function renderizarProdutos(produtosParaExibir) {
         const div = document.createElement("div");
         div.className = "col-md-4";
 
-        // =======================
-        // Botão Comprar
-        // =======================
-        let botao;
+        let botao = "";
 
         if (produto.estoque > 0) {
 
@@ -28,9 +25,7 @@ function renderizarProdutos(produtosParaExibir) {
                 <button
                     class="btn btn-dark flex-grow-1"
                     onclick="addCarrinho('${produto.nome}', ${produto.preco})">
-
                     Comprar
-
                 </button>
             `;
 
@@ -40,18 +35,13 @@ function renderizarProdutos(produtosParaExibir) {
                 <button
                     class="btn btn-secondary flex-grow-1"
                     disabled>
-
                     Produto indisponível
-
                 </button>
             `;
 
         }
 
-        // =======================
-        // Botão Favorito
-        // =======================
-        let favorito;
+        let favorito = "";
 
         if (favoritos.includes(produto.id)) {
 
@@ -59,9 +49,7 @@ function renderizarProdutos(produtosParaExibir) {
                 <button
                     class="btn btn-outline-danger"
                     onclick="favoritar(${produto.id})">
-
                     ❤️
-
                 </button>
             `;
 
@@ -71,17 +59,12 @@ function renderizarProdutos(produtosParaExibir) {
                 <button
                     class="btn btn-outline-secondary"
                     onclick="favoritar(${produto.id})">
-
                     🤍
-
                 </button>
             `;
 
         }
 
-        // =======================
-        // Card
-        // =======================
         div.innerHTML = `
             <div class="card h-100">
 
@@ -92,13 +75,9 @@ function renderizarProdutos(produtosParaExibir) {
 
                 <div class="card-body">
 
-                    <h5 class="card-title">
-                        ${produto.nome}
-                    </h5>
+                    <h5 class="card-title">${produto.nome}</h5>
 
-                    <p class="card-text">
-                        ${produto.descricao}
-                    </p>
+                    <p class="card-text">${produto.descricao}</p>
 
                     <p>
                         <strong>
@@ -135,13 +114,13 @@ function renderizarProdutos(produtosParaExibir) {
 }
 
 // =======================
-// Favoritar Produto
+// Favoritar
 // =======================
 function favoritar(id) {
 
     if (favoritos.includes(id)) {
 
-        favoritos = favoritos.filter(favorito => favorito !== id);
+        favoritos = favoritos.filter(f => f !== id);
 
     } else {
 
@@ -163,31 +142,29 @@ function favoritar(id) {
 // =======================
 function atualizarListaProdutos() {
 
-    let produtosParaMostrar = produtos;
+    let lista = [...produtos];
 
-    // Pesquisa
-    const inputPesquisa = document.getElementById("pesquisaProdutos");
+    const pesquisa = document.getElementById("pesquisaProdutos");
 
-    if (inputPesquisa && inputPesquisa.value.trim() !== "") {
+    if (pesquisa && pesquisa.value.trim() !== "") {
 
-        const textoPesquisa = inputPesquisa.value.toLowerCase();
-
-        produtosParaMostrar = produtosParaMostrar.filter(produto =>
-            produto.nome.toLowerCase().includes(textoPesquisa)
+        lista = lista.filter(produto =>
+            produto.nome
+                .toLowerCase()
+                .includes(pesquisa.value.toLowerCase())
         );
 
     }
 
-    // Favoritos
     if (mostrarSomenteFavoritos) {
 
-        produtosParaMostrar = produtosParaMostrar.filter(produto =>
+        lista = lista.filter(produto =>
             favoritos.includes(produto.id)
         );
 
     }
 
-    renderizarProdutos(produtosParaMostrar);
+    renderizarProdutos(lista);
 
 }
 
@@ -198,15 +175,19 @@ function mostrarFavoritos() {
 
     mostrarSomenteFavoritos = !mostrarSomenteFavoritos;
 
-    const btnFavoritos = document.getElementById("btnFavoritos");
+    const botao = document.getElementById("btnFavoritos");
 
-    if (mostrarSomenteFavoritos) {
+    if (botao) {
 
-        btnFavoritos.innerHTML = "📦 Mostrar todos os produtos";
+        if (mostrarSomenteFavoritos) {
 
-    } else {
+            botao.innerHTML = "📦 Mostrar todos os produtos";
 
-        btnFavoritos.innerHTML = "❤️ Mostrar apenas favoritos";
+        } else {
+
+            botao.innerHTML = "❤️ Mostrar apenas favoritos";
+
+        }
 
     }
 
@@ -217,16 +198,24 @@ function mostrarFavoritos() {
 // =======================
 // Carregar Página
 // =======================
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
 
     atualizarListaProdutos();
 
-    const inputPesquisa = document.getElementById("pesquisaProdutos");
+    const pesquisa = document.getElementById("pesquisaProdutos");
 
-    inputPesquisa.addEventListener("input", atualizarListaProdutos);
+    if (pesquisa) {
+
+        pesquisa.addEventListener("input", atualizarListaProdutos);
+
+    }
 
     const btnFavoritos = document.getElementById("btnFavoritos");
 
-    btnFavoritos.addEventListener("click", mostrarFavoritos);
+    if (btnFavoritos) {
+
+        btnFavoritos.onclick = mostrarFavoritos;
+
+    }
 
 });
