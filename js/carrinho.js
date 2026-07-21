@@ -1,25 +1,31 @@
 let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
 let cupomAplicado = false;
 
-// Abrir / fechar carrinho
+// =======================
+// Abrir / Fechar Carrinho
+// =======================
 function toggleCarrinho() {
+
     const box = document.getElementById("carrinhoBox");
 
     if (!box) return;
 
-    box.style.display = box.style.display === "block" ? "none" : "block";
+    box.style.display =
+        box.style.display === "block"
+            ? "none"
+            : "block";
 }
 
-
-// Adicionar produto
+// =======================
+// Adicionar Produto
+// =======================
 function addCarrinho(id) {
 
-    // Procura o produto na lista
     const produto = produtos.find(produto => produto.id === id);
 
     if (!produto) return;
 
-    // Não permite comprar se não houver estoque
+    // Apenas impede adicionar caso já esteja sem estoque
     if (produto.estoque <= 0) {
 
         alert("Produto indisponível.");
@@ -28,7 +34,6 @@ function addCarrinho(id) {
 
     }
 
-    // Procura se já existe no carrinho
     const item = carrinho.find(item => item.id === id);
 
     if (item) {
@@ -48,32 +53,34 @@ function addCarrinho(id) {
 
     }
 
-    // Diminui o estoque
-    produto.estoque--;
-
-    // Salva o carrinho
     localStorage.setItem(
         "carrinho",
         JSON.stringify(carrinho)
     );
 
-    // Atualiza a tela
     atualizarCarrinho();
-    atualizarListaProdutos();
 
 }
 
-// Excluir produto
-function excluirCarrinho(nome) {
+// =======================
+// Excluir Produto
+// =======================
+function excluirCarrinho(id) {
 
-    carrinho = carrinho.filter(item => item.nome !== nome);
+    carrinho = carrinho.filter(item => item.id !== id);
 
-    localStorage.setItem("carrinho", JSON.stringify(carrinho));
+    localStorage.setItem(
+        "carrinho",
+        JSON.stringify(carrinho)
+    );
 
     atualizarCarrinho();
+
 }
 
-// Atualizar carrinho
+// =======================
+// Atualizar Carrinho
+// =======================
 function atualizarCarrinho() {
 
     const lista = document.getElementById("listaCarrinho");
@@ -92,11 +99,17 @@ function atualizarCarrinho() {
         const li = document.createElement("li");
 
         li.innerHTML = `
-            <h5 class="card-title">${item.nome}</h5>
-            <p>Quantidade: ${item.qtd}</p>
-            <p><strong>R$ ${(item.preco * item.qtd).toFixed(2)}</strong></p>
+            <h5>${item.nome}</h5>
 
-            <button onclick="excluirCarrinho('${item.nome}')">
+            <p>Quantidade: ${item.qtd}</p>
+
+            <p>
+                <strong>
+                    R$ ${(item.preco * item.qtd).toFixed(2)}
+                </strong>
+            </p>
+
+            <button onclick="excluirCarrinho(${item.id})">
                 🗑️
             </button>
         `;
@@ -111,25 +124,34 @@ function atualizarCarrinho() {
     let desconto = 0;
 
     if (cupomAplicado) {
+
         desconto = total * 0.10;
+
     }
 
     const totalFinal = total - desconto;
 
     totalEl.innerHTML = `
         <p>Subtotal: <strong>R$ ${total.toFixed(2)}</strong></p>
+
         <p>Desconto: <strong>R$ ${desconto.toFixed(2)}</strong></p>
+
         <h5>Total: <strong>R$ ${totalFinal.toFixed(2)}</strong></h5>
     `;
 
     contador.textContent = quantidade;
+
 }
 
-// Aplicar cupom
+// =======================
+// Aplicar Cupom
+// =======================
 function aplicarCupom() {
 
     const inputCupom = document.getElementById("cupom");
+
     const textoCupom = inputCupom.value.trim();
+
     const mensagem = document.getElementById("mensagemCupom");
 
     if (textoCupom.toLowerCase() === "primeira10") {
@@ -147,9 +169,12 @@ function aplicarCupom() {
     }
 
     atualizarCarrinho();
+
 }
 
-// Finalizar pedido
+// =======================
+// Finalizar Pedido
+// =======================
 function finalizarPedido() {
 
     if (carrinho.length === 0) {
@@ -160,7 +185,7 @@ function finalizarPedido() {
 
     }
 
-    // Baixa o estoque dos produtos comprados
+    // Atualiza o estoque
     carrinho.forEach(item => {
 
         const produto = produtos.find(produto => produto.id === item.id);
@@ -172,6 +197,12 @@ function finalizarPedido() {
         }
 
     });
+
+    // Salva o estoque atualizado
+    localStorage.setItem(
+        "produtos",
+        JSON.stringify(produtos)
+    );
 
     let mensagem = "Olá! Gostaria de comprar:\n\n";
 
@@ -207,7 +238,38 @@ function finalizarPedido() {
 
     window.open(url, "_blank");
 
+    // Limpa o carrinho
+    carrinho = [];
+
+    localStorage.removeItem("carrinho");
+
+    cupomAplicado = false;
+
+    const mensagemCupom = document.getElementById("mensagemCupom");
+
+    if (mensagemCupom) {
+
+        mensagemCupom.textContent = "";
+
+    }
+
+    const inputCupom = document.getElementById("cupom");
+
+    if (inputCupom) {
+
+        inputCupom.value = "";
+
+    }
+
+    atualizarCarrinho();
+    atualizarListaProdutos();
+
 }
 
-// Atualiza carrinho ao carregar a página
-document.addEventListener("DOMContentLoaded", atualizarCarrinho);
+// =======================
+// Carregar Página
+// =======================
+document.addEventListener(
+    "DOMContentLoaded",
+    atualizarCarrinho
+);
