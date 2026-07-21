@@ -10,24 +10,57 @@ function toggleCarrinho() {
     box.style.display = box.style.display === "block" ? "none" : "block";
 }
 
+
 // Adicionar produto
-function addCarrinho(nome, preco) {
+function addCarrinho(id) {
 
-    const produto = carrinho.find(item => item.nome === nome);
+    // Procura o produto na lista
+    const produto = produtos.find(produto => produto.id === id);
 
-    if (produto) {
-        produto.qtd++;
-    } else {
-        carrinho.push({
-            nome,
-            preco,
-            qtd: 1
-        });
+    if (!produto) return;
+
+    // Não permite comprar se não houver estoque
+    if (produto.estoque <= 0) {
+
+        alert("Produto indisponível.");
+
+        return;
+
     }
 
-    localStorage.setItem("carrinho", JSON.stringify(carrinho));
+    // Procura se já existe no carrinho
+    const item = carrinho.find(item => item.id === id);
 
+    if (item) {
+
+        item.qtd++;
+
+    } else {
+
+        carrinho.push({
+
+            id: produto.id,
+            nome: produto.nome,
+            preco: produto.preco,
+            qtd: 1
+
+        });
+
+    }
+
+    // Diminui o estoque
+    produto.estoque--;
+
+    // Salva o carrinho
+    localStorage.setItem(
+        "carrinho",
+        JSON.stringify(carrinho)
+    );
+
+    // Atualiza a tela
     atualizarCarrinho();
+    atualizarListaProdutos();
+
 }
 
 // Excluir produto
@@ -127,6 +160,19 @@ function finalizarPedido() {
 
     }
 
+    // Baixa o estoque dos produtos comprados
+    carrinho.forEach(item => {
+
+        const produto = produtos.find(produto => produto.id === item.id);
+
+        if (produto) {
+
+            produto.estoque -= item.qtd;
+
+        }
+
+    });
+
     let mensagem = "Olá! Gostaria de comprar:\n\n";
 
     let total = 0;
@@ -144,7 +190,9 @@ function finalizarPedido() {
     let desconto = 0;
 
     if (cupomAplicado) {
+
         desconto = total * 0.10;
+
     }
 
     const totalFinal = total - desconto;
