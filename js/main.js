@@ -24,7 +24,7 @@ function renderizarProdutos(produtosParaExibir) {
             botao = `
                 <button
                     class="btn btn-dark flex-grow-1"
-                    onclick="addCarrinho('${produto.nome}', ${produto.preco})">
+                    onclick="addCarrinho(${produto.id})">
                     Comprar
                 </button>
             `;
