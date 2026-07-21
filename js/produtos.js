@@ -1,4 +1,4 @@
-const produtos = [ 
+const produtosPadrao = [
 { id: 1, 
 nome: "Brinco", 
 preco: 20.00,
@@ -24,3 +24,7 @@ categoria: "Pulseiras",
 estoque: 1, imagem: "img/pulseira1.jpg",
 destaque:true,
 } ];
+
+let produtos =
+    JSON.parse(localStorage.getItem("produtos")) ||
+    produtosPadrao;
