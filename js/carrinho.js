@@ -63,6 +63,68 @@ function addCarrinho(id) {
 }
 
 // =======================
+// Aumentar Quantidade
+// =======================
+function aumentarQuantidade(id) {
+
+       
+
+    const item = carrinho.find(item => item.id === id);
+
+    const produto = produtos.find(produto => produto.id === id);
+
+    if (!item || !produto) return;
+
+    // Não deixa vender além do estoque
+    if (item.qtd >= produto.estoque) {
+
+        alert("Quantidade máxima disponível em estoque.");
+
+        return;
+
+    }
+
+    item.qtd++;
+
+    localStorage.setItem(
+        "carrinho",
+        JSON.stringify(carrinho)
+    );
+
+    atualizarCarrinho();
+
+}
+
+// =======================
+// Diminuir Quantidade
+// =======================
+function diminuirQuantidade(id) {
+
+    const item = carrinho.find(item => item.id === id);
+
+    if (!item) return;
+
+    item.qtd--;
+
+    // Remove do carrinho quando chegar a zero
+    if (item.qtd <= 0) {
+
+        excluirCarrinho(id);
+
+        return;
+
+    }
+
+    localStorage.setItem(
+        "carrinho",
+        JSON.stringify(carrinho)
+    );
+
+    atualizarCarrinho();
+
+}
+
+// =======================
 // Excluir Produto
 // =======================
 function excluirCarrinho(id) {
@@ -99,20 +161,44 @@ function atualizarCarrinho() {
         const li = document.createElement("li");
 
         li.innerHTML = `
-            <h5>${item.nome}</h5>
+    <h5>${item.nome}</h5>
 
-            <p>Quantidade: ${item.qtd}</p>
+    <div class="d-flex align-items-center gap-2">
 
-            <p>
-                <strong>
-                    R$ ${(item.preco * item.qtd).toFixed(2)}
-                </strong>
-            </p>
+        <button
+            class="btn btn-outline-secondary btn-sm"
+            onclick="diminuirQuantidade(${item.id})">
 
-            <button onclick="excluirCarrinho(${item.id})">
-                🗑️
-            </button>
-        `;
+            ➖
+
+        </button>
+
+        <strong>${item.qtd}</strong>
+
+        <button
+            class="btn btn-outline-secondary btn-sm"
+            onclick="aumentarQuantidade(${item.id})">
+
+            ➕
+
+        </button>
+
+    </div>
+
+    <p class="mt-2">
+        <strong>
+            R$ ${(item.preco * item.qtd).toFixed(2)}
+        </strong>
+    </p>
+
+    <button
+        class="btn btn-danger btn-sm"
+        onclick="excluirCarrinho(${item.id})">
+
+        🗑️ Remover
+
+    </button>
+`;
 
         lista.appendChild(li);
 
