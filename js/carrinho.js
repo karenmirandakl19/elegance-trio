@@ -25,7 +25,6 @@ function addCarrinho(id) {
 
     if (!produto) return;
 
-    // Apenas impede adicionar caso já esteja sem estoque
     if (produto.estoque <= 0) {
 
         alert("Produto indisponível.");
