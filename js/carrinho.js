@@ -35,18 +35,18 @@ function addCarrinho(id) {
 
     const item = carrinho.find(item => item.id === id);
 
-    if (item) {
+   if (item) {
 
-        item.qtd++;
+    if (item.qtd >= produto.estoque) {
 
-    } else {
+        alert("Quantidade máxima disponível em estoque.");
 
-        carrinho.push({
+        return;
 
-            id: produto.id,
-            nome: produto.nome,
-            preco: produto.preco,
-            qtd: 1
+    }
+
+    item.qtd++;
+
 
         });
 
