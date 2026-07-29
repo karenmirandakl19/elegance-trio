@@ -17,8 +17,6 @@ function toggleCarrinho() {
 }
 
 // =======================
-// Adicionar Produto
-// =======================
 function addCarrinho(id) {
 
     const produto = produtos.find(produto => produto.id === id);
@@ -35,18 +33,30 @@ function addCarrinho(id) {
 
     const item = carrinho.find(item => item.id === id);
 
-   if (item) {
+    // Se o produto já estiver no carrinho
+    if (item) {
 
-    if (item.qtd >= produto.estoque) {
+        // Verifica se ainda pode aumentar
+        if (item.qtd >= produto.estoque) {
 
-        alert("Quantidade máxima disponível em estoque.");
+            alert("Quantidade máxima disponível em estoque.");
 
-        return;
+            return;
 
-    }
+        }
 
-    item.qtd++;
+        // Pode aumentar
+        item.qtd++;
 
+    } else {
+
+        // Produto ainda não está no carrinho
+        carrinho.push({
+
+            id: produto.id,
+            nome: produto.nome,
+            preco: produto.preco,
+            qtd: 1
 
         });
 
@@ -60,7 +70,6 @@ function addCarrinho(id) {
     atualizarCarrinho();
 
 }
-
 // =======================
 // Aumentar Quantidade
 // =======================
