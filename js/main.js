@@ -85,10 +85,13 @@ function renderizarProdutos(produtosParaExibir) {
                         </strong>
                     </p>
 
-                    <p>
-                        Estoque:
-                        <strong>${produto.estoque}</strong>
-                    </p>
+               <p>
+    <strong>
+        Estoque:
+        ${produto.estoque}
+        ${produto.estoque === 1 ? "unidade" : "unidades"}
+    </strong>
+</p>
 
                     <p class="text-muted">
                         ${produto.categoria}
