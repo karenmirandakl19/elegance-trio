@@ -39,7 +39,38 @@ function renderizarProdutos(produtosParaExibir) {
                 </button>
             `;
 
-        }
+        } 
+        let textoEstoque = "";
+
+if (produto.estoque > 1) {
+
+   textoEstoque = `
+    <p>
+        Estoque:
+        <strong>
+            ${produto.estoque} unidades
+        </strong>
+    </p>
+`;
+    
+
+} else if (produto.estoque === 1) {
+
+    textoEstoque = `
+        <p class="text-warning fw-bold">
+            ⚠️ Última unidade disponível!
+        </p>
+    `;
+
+} else {
+
+    textoEstoque = `
+        <p class="text-danger fw-bold">
+            ❌ Produto esgotado
+        </p>
+    `;
+
+}
 
         let favorito = "";
 
@@ -85,13 +116,9 @@ function renderizarProdutos(produtosParaExibir) {
                         </strong>
                     </p>
 
-               <p>
-    <strong>
-        Estoque:
-        ${produto.estoque}
-        ${produto.estoque === 1 ? "unidade" : "unidades"}
-    </strong>
-</p>
+               
+   ${textoEstoque}
+
 
                     <p class="text-muted">
                         ${produto.categoria}
